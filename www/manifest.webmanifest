@@ -1,0 +1,18 @@
+{
+  "lang": "en",
+  "dir": "ltr",
+  "name": "VegMachine",
+  "short_name": "VegMachine",
+  "icons": [{
+    "src": "assets/images/VMOLogo64x64.png",
+    "sizes": "64x64"
+  },
+  {
+    "src": "assets/images/VMOLogo128x128.png",
+    "sizes": "128x128"
+  }],
+  "scope": "/vegmachine/",
+  "start_url": "index.html",
+   "display": "standalone",
+  "orientation": "portrait"
+}

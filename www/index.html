@@ -1,0 +1,1092 @@
+<!DOCTYPE html>
+<!--[if IE 8]>         
+<html class="ie8">
+   <![endif]-->
+<!--[if IE 9]>         
+   <html class="ie9 gt-ie8">
+      <![endif]-->
+<!--[if gt IE 9]><!-->
+<html class="gt-ie8 gt-ie9 not-ie">
+
+<head>
+	<title>VegMachine</title>
+	<meta name="google-site-verification" content="odoamITT80_K8W0rxrSloh5SezB85hPMoq9jJBo-aSs" />
+	<meta charset="utf-8">
+	<meta https-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="mobile-web-app-capable" content="yes">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+	<meta name="description" content="VegMachine is an online tool that uses satellite imagery to summarise decades of change in Australia’s grazing lands. It’s simple to operate, easy to understand, and free to use.">
+	<link rel="manifest" href="manifest.webmanifest">
+	<link rel="icon" sizes="64x64" href="assets/images/VMOLogo64x64.png">
+	<!--             <script type="text/javascript">
+               L_PREFER_CANVAS = true;
+            </script> -->
+	<!-- Open Sans font from Google CDN -->
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,400,600,700,300&subset=latin" rel="stylesheet" type="text/css">
+	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet">
+	<link href="assets/vendor/bootstrap/bootstrap.css" rel="stylesheet" type="text/css" media="screen">
+	<!-- leaflet stylesheets -->
+	<!--      <link href="https://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" rel="stylesheet"/>-->
+	<!--             <link rel="stylesheet" href="assets/vendor/leaflet/leaflet/leaflet.css" /> -->
+
+	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.2.0/dist/leaflet.css" />
+	<link href="assets/vendor/leaflet/Leaflet.draw/leaflet.draw.css" rel="stylesheet" />
+	<link href="assets/vendor/leaflet/groupedlayercontrol/leaflet.groupedlayercontrol.min.css" rel="stylesheet" type="text/css">
+	<link href="assets/vendor/leaflet/Leaflet.MousePosition/L.Control.MousePosition.css" rel="stylesheet" type="text/css"> 
+	<link rel="stylesheet" href="https://cdn.rawgit.com/socib/Leaflet.TimeDimension/master/dist/leaflet.timedimension.control.min.css" />
+
+	<!-- Admin Panels CSS -->
+	<link href="assets/vendor/admin-tools/admin-plugins/admin-panels/adminpanels.css" rel="stylesheet" type="text/css">
+	<!-- Vegmachine's stylesheets -->
+	<link href="assets/vendor/pixel-admin/pixel-admin.css" rel="stylesheet" type="text/css">
+	<link href="assets/vendor/fonts/css/font-awesome.min.css" rel="stylesheet" media="screen">
+	<link href="assets/vendor/pixel-admin/themes.css" rel="stylesheet" type="text/css" media="screen">
+	<link href="assets/css/vegmachine.css" rel="stylesheet" type="text/css" media="screen">
+	<link href="assets/css/media.css" rel="stylesheet" type="text/css" media="screen">
+	<link href="assets/css/transparency.css" rel="stylesheet" type="text/css" media="screen">
+	<!-- Favicon -->
+	<link rel="shortcut icon" href="assets/images/VMOLogo64x64.png">
+
+	<!--[if lt IE 9]>
+            <script src="assets/javascripts/ie.min.js"></script>
+            <![endif]-->
+	<!--[if lt IE 9]>
+            <script src="assets/javascripts/ie.min.js"></script>
+            <![endif]-->
+	<script type="application/ld+json">
+		{
+			"@context": "https://schema.org/",
+			"@type": "Product",
+			"name": "Vegmachine Online",
+			"image": "https://vegmachine.net/assets/images/VMOLogo64x64.png",
+			"description": "VegMachine is an online tool that uses satellite imagery to summarise decades of change in Australia’s grazing lands. It is simple to operate and free to use."
+		}
+	</script>
+</head>
+<!-- 1. $BODY ======================================================================================
+            Body
+            
+            Classes:
+            * 'main-navbar-fixed'  - Fixes the main navigation
+            * 'main-menu-fixed'    - Fixes the main menu
+            * 'main-menu-animated' - Animate main menu
+            -->
+
+<body class="theme-default main-menu-fixed navbar-fixed-left main-navbar-fixed">
+<!-- MOUSEFLOW TRACKING CODE -->
+	          <script type="text/javascript">
+              var _mfq = _mfq || [];
+              (function() {
+                  var mf = document.createElement("script");
+                  mf.type = "text/javascript"; mf.async = true;
+                  mf.src = "//cdn.mouseflow.com/projects/2c12b6e5-5bdd-41e3-95d9-30bf29be2c42.js";
+                  document.getElementsByTagName("head")[0].appendChild(mf);
+              })();
+            </script>
+           
+           <script>
+            (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+            })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+            ga('create', 'UA-74121957-1', 'auto');
+            ga('send', 'pageview'); 
+          </script>    
+	<script> 
+		var init = [];
+	</script>
+	<div id="main-wrapper">
+		<!-- 2. $MAIN_NAVIGATION ===========================================================================
+                  Main navigation
+                  -->
+		<div id="main-navbar" class="navbar" role="navigation">
+			<!-- Main menu toggle -->
+			<button type="button" id="main-menu-toggle"><i class="navbar-icon fa fa-bars icon"></i><span class="hide-menu-text"></span></button>
+			<div class="navbar-inner">
+				<!-- Main navbar header -->
+				<div class="navbar-header">
+					<!-- Logo -->
+					<a href="index.html" class="navbar-brand">
+                        <img src="assets/images/VMOLogo64x64.png"  alt="VegMachine" class="menu-icon"><span class="mm-text"> VegMachine</span>
+                        </a>
+					<ul class="nav navbar-nav pull-right right-navbar-nav">
+						<a href="help.html" class="btn btn-primary btn-block dark" target="_blank"><i class="menu-icon fa fa-question-circle"></i>     Help</a>
+					</ul>
+					<!----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------->
+					<!--                         <ul class="nav navbar-nav pull-right right-navbar-nav">
+                           <a class="btn btn-warning btn-block dark" data-toggle="modal" data-target="#competitionModal">Competition</a>
+                        </ul> -->
+					<!----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------->
+				</div>
+				<!-- / .navbar-header -->
+				<!-- / .navbar-nav -->
+			</div>
+			<!-- / .navbar-inner -->
+		</div>
+		<!-- / #main-navbar -->
+		<!-- /2. $END_MAIN_NAVIGATION -->
+		<!-- 4. $MAIN_MENU =================================================================================  -->
+		<div id="main-menu">
+			<div id="main-menu-inner">
+				<ul class="navigation">
+					<li class="mm-dropdown mm-dropdown-root">
+						<a href="#" title="Functions to help manage your map data"><i class="menu-icon fa fa-globe"></i><span class="mm-text mmc-dropdown-delay animated fadeIn">Map Functions</span></a>
+						<ul class="mmc-dropdown-delay animated fadeInLeft">
+							<li>
+								<a tabindex="-1" href="#" data-toggle="modal" data-target="#geojsonModal" title="Import polygons from a local file"><span class="mm-text">Import Polygons<span class="badge badge-primary"><i class="fa fa-wrench"></i></span></span></a>
+							</li>
+							<li>
+								<a id="rename" tabindex="-1" href="#" title="Rename your polygons with meaningful labels"><span class="mm-text">Rename Polygons<span class="badge badge-primary"><i class="fa fa-wrench"></i></span></span></a>
+							</li>
+							<li>
+								<a id="savePolygons" tabindex="-1" href="#" title="Save your polygons as a geojson file for later use"><span class="mm-text">Save Polygons<span class="badge badge-primary"><i class="fa fa-floppy-o"></i></span></span></a>
+							</li>
+							<li>
+								<a tabindex="-1" href="#" data-toggle="modal" data-target="#geocodingModal" title="Find location using address geocoding"><span class="mm-text">Search for Location
+                                 <span class="badge badge-primary"><i class="fa fa-wrench"></i></span></span></a>
+							</li>
+							<li class="mm-dropdown mm-dropdown-root">
+								<a href="#" title="Zoom to the region of your polygons"><span class="mm-text mmc-dropdown-delay animated fadeIn">Zoom to Polygons</span></a>
+								<ul class="mmc-dropdown-delay animated fadeInLeft" style="">
+									<li>
+										<a id="zoomAll" tabindex="-1" href="#" title="Zoom to all polygons"><span class="mm-text">All Polygons<span class="badge badge-primary"><i class="fa fa-search"></i></span></span></a>
+									</li>
+									<li>
+										<a id="zoomSelected" tabindex="-1" href="#" title="Zoom to selected polygons"><span class="mm-text">Selected Polygons<span class="badge badge-primary"><i class="fa fa-search"></i></span></span></a>
+									</li>
+								</ul>
+							</li>
+						</ul>
+					</li>
+					<li class="mm-dropdown mm-dropdown-root">
+						<a href="#" title="Explore the data interactively"><i class="menu-icon fa fa-area-chart"></i><span class="mm-text mmc-dropdown-delay animated fadeIn">Interactive Analyses</span></a>
+						<ul class="mmc-dropdown-delay animated fadeInLeft">
+							<li class="mm-dropdown">
+								<a tabindex="-1" href="#" title="Get the timeseries of rain and cover for a region"><span class="mm-text">Single Polygon</span></a>
+								<ul class="seasonal">
+									<li>
+										<a tabindex="-1" href="#" value="aus:ground_cover"><span class="mm-text">Ground Cover<span class="badge badge-primary"><i class="fa fa-area-chart"></i></span></span></a>
+									</li>
+  								<li>
+										<a tabindex="-1" href="#" value="aus:monthly_fractional_cover"><span class="mm-text">Monthly Fractional Cover<span class="badge badge-primary"><i class="fa fa-area-chart"></i></span></span></a>
+									</li>                
+									<li>
+										<a tabindex="-1" href="#" value="aus:fractional_cover"><span class="mm-text">Fractional Cover<span class="badge badge-primary"><i class="fa fa-area-chart"></i></span></span></a>
+									</li>
+								</ul>
+							</li>
+							<li class="mm-dropdown">
+								<a tabindex="-1" href="#" title="Compare cover for two polygons"><span class="mm-text">Polygon Comparison</span></a>
+								<ul class="polygon">
+									<li>
+										<a tabindex="-1" href="#" value="aus:ground_cover"><span class="mm-text">Ground Cover<span class="badge badge-primary"><i class="fa fa-area-chart"></i></span></span></a>
+									</li>
+									<li>
+										<a tabindex="-1" href="#" value="aus:fractional_cover"><span class="mm-text">Fractional Cover<span class="badge badge-primary"><i class="fa fa-area-chart"></i></span></span></a>
+									</li>
+								</ul>
+							</li>
+							<li>
+								<a tabindex="-1" href="#" data-toggle="modal" title="Calculate PEPER erosion data" data-target="#peperModal"><span class="mm-text" >PEPER<span class="badge badge-primary"><i class="fa fa-wrench"></i></span></span></a>
+							</li>
+						</ul>
+					</li>
+					<li class="mm-dropdown mm-dropdown-root">
+						<a href="#" title="Get a text based report prepared for a selected region in QLD"><i class="menu-icon fa fa-file-text-o"></i><span class="mm-text mmc-dropdown-delay animated fadeIn">Reports</span></a>
+						<ul class="mmc-dropdown-delay animated fadeInLeft">
+							<li>
+								<a tabindex="-1" href="#" data-toggle="modal" title="Request a PDF Forage report" data-target="#forageModal"><span class="mm-text">FORAGE<span class="badge badge-primary"><i class="fa fa-file-pdf-o"></i></span></span></a>
+							</li>
+						</ul>
+					</li>
+					<div class="menu-content animated fadeIn">
+						<a href="#" class="btn btn-primary btn-block btn-outline dark" data-toggle="modal" data-target="#modal-contact">Report Issue</a>
+					</div>
+				</ul>
+			</div>
+			<!-- / #main-menu-inner -->
+		</div>
+
+		<!-- / #main-menu -->
+		<!-- /4. $MAIN_MENU -->
+		<!-- MODALS-->
+		<div id="modals">
+			<!-- Warning -->
+			<div id="data-warning" class="modal modal-alert modal-warning fade" data-backdrop="static">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<i class="fa fa-question-circle-o"></i>
+						</div>
+						<div class="modal-title">Data Collection</div>
+						<div class="modal-body">VegMachine collects no personally identifying user information. We do collect polygon geometries from user queries. This helps us improve our products and service.
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-warning" data-dismiss="modal">OK</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div id="server-down" class="modal modal-alert modal-danger fade" data-backdrop="static">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<i class="fa fa-exclamation"></i>
+						</div>
+						<div class="modal-title">Data Server Down</div>
+						<div class="modal-body">
+							<p>VegMachine's data server is currently down. Interactive analyses are currently unavailable.</p>
+							<p>
+								Map overlays and FORAGE reports are still accessible.
+							</p>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-danger" data-dismiss="modal">OK</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- / Warning -->
+			<div id="explorerAlert" class="modal fade notice">
+				<div class="modal-dialog modal-sm">
+					<div class="modal-content">
+						<div class="modal-header bg-warning">
+							<h4 class="modal-title">Internet Explorer not Supported</h4>
+						</div>
+						<div class="modal-body">VegMachine has functionality that is not supported in Internet Explorer. For best results, please use a different browser.</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-warning" data-dismiss="modal">OK</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- / Warning -->
+			<div id="dateRangeAlert" class="modal fade notice">
+				<div class="modal-dialog modal-sm">
+					<div class="modal-content">
+						<div class="modal-header bg-warning">
+							<h4 class="modal-title">Persistent Green Image not Available</h4>
+						</div>
+						<div class="modal-body"></div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-warning" data-dismiss="modal">OK</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- / Warning -->
+			<div id="polygonAlert" class="modal fade notice">
+				<div class="modal-dialog modal-sm">
+					<div class="modal-content">
+						<div class="modal-header bg-warning">
+							<h4 class="modal-title">Select a Polygon</h4>
+						</div>
+						<div class="modal-body">You must select at least one polygon. You can select a polygon by clicking on one. If you do not have any polygons on the map, you can import them or draw them.</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-warning" data-dismiss="modal">OK</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- / Warning -->
+			<div id="noPolygonAlert" class="modal fade notice">
+				<div class="modal-dialog modal-sm">
+					<div class="modal-content">
+						<div class="modal-header bg-warning">
+							<h4 class="modal-title">No Polygons Exist</h4>
+						</div>
+						<div class="modal-body">You need to have one or more polygons drawn on your map. You can draw or import polygons.</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-warning" data-dismiss="modal">OK</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- / Warning -->
+			<div id="twoPolygonAlert" class="modal fade notice">
+				<div class="modal-dialog modal-sm">
+					<div class="modal-content">
+						<div class="modal-header bg-warning">
+							<h4 class="modal-title">Select Two Polygons</h4>
+						</div>
+						<div class="modal-body">You must select exactly two polygons. You can select a polygon by clicking on one. If you do not have any polygons on the map, you can import them or draw them.</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-warning" data-dismiss="modal">OK</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- / Warning -->
+			<div id="areaAlert" class="modal fade notice">
+				<div class="modal-dialog modal-sm">
+					<div class="modal-content">
+						<div class="modal-header bg-warning">
+							<h4 class="modal-title">Region not in QLD</h4>
+						</div>
+						<div class="modal-body">Your selected area does not fall entirely within QLD. You can not request this report for this region.</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-warning" data-dismiss="modal">OK</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- / Warning -->
+			<div id="regionValidAlert" class="modal fade notice">
+				<div class="modal-dialog modal-sm">
+					<div class="modal-content">
+						<div class="modal-header bg-warning">
+							<h4 class="modal-title">Region not in QLD</h4>
+						</div>
+						<div class="modal-body">Your selected area does not fall entirely within QLD. You can not request this report for this region.</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-warning" data-dismiss="modal">OK</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- / Warning -->
+			<div id="regionSmallAlert" class="modal fade notice">
+				<div class="modal-dialog modal-sm">
+					<div class="modal-content">
+						<div class="modal-header bg-warning">
+							<h4 class="modal-title">Region too Small </h4>
+						</div>
+						<div class="modal-body">Your selected area is too small. The minimum size allowable for this report is 5 ha. You can not request this report for this region.</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-warning" data-dismiss="modal">OK</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- / Warning -->
+			<!-- / Warning -->
+			<div id="regionLargeAlert" class="modal fade notice">
+				<div class="modal-dialog modal-sm">
+					<div class="modal-content">
+						<div class="modal-header bg-warning">
+							<h4 class="modal-title">Region too Large </h4>
+						</div>
+						<div class="modal-body">Your selected area is too large. The maximum polygon size for this report is 200 km in diameter. You can not request this report for this region.</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-warning" data-dismiss="modal">OK</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- / Warning -->
+			<div id="emailAlert" class="modal fade notice">
+				<div class="modal-dialog modal-sm">
+					<div class="modal-content">
+						<div class="modal-header bg-warning">
+							<h4 class="modal-title">Missing Email</h4>
+						</div>
+						<div class="modal-body">
+							<div class="modal-body">You need to enter an email address.</div>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-warning" data-dismiss="modal">OK</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- / Warning -->
+			<div id="forageAlert" class="modal fade notice">
+				<div class="modal-dialog modal-sm">
+					<div class="modal-content">
+						<div class="modal-header bg-primary">
+							<h4 class="modal-title">Report Requested</h4>
+						</div>
+						<div class="modal-body">Your request for a Forage report has been sent. You should receive an email shortly. </div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- / Warning -->
+			<div id="renameAlert" class="modal fade notice">
+				<div class="modal-dialog modal-sm">
+					<div class="modal-content">
+						<div class="modal-header bg-warning">
+							<h4 class="modal-title">No Polygons Selected</h4>
+						</div>
+						<div class="modal-body">
+							<div class="modal-body">You must select at least one polygon to rename.</div>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-warning" data-dismiss="modal">OK</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- / Warning -->
+			<div id="peperAlert" class="modal fade notice">
+				<div class="modal-dialog modal-sm">
+					<div class="modal-content">
+						<div class="modal-header bg-warning">
+							<h4 class="modal-title">Polygon Distance Warning</h4>
+						</div>
+						<div class="modal-body">
+							<div class="modal-body">
+								<p>You have selected multiple polygons far apart. Multiple selections are appropriate only for closely located polygons (e.g. separated by a road)</p>
+								<p><b>Results will not be reliable if selected polygons are widely dispersed.</b></p>
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-warning" data-dismiss="modal">OK</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- / Warning -->
+			<div id="labelAlert" class="modal fade notice">
+				<div class="modal-dialog modal-sm">
+					<div class="modal-content">
+						<div class="modal-header bg-warning">
+							<h4 class="modal-title">Label Field Does Not Exist</h4>
+						</div>
+						<div class="modal-body">
+							<div class="modal-body">The label field you specified does not exist. Re-import your polygon file with a correct field name or no field name defined.</div>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-warning" data-dismiss="modal">OK</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- / Warning -->
+			<div id="transformAlert" class="modal fade notice">
+				<div class="modal-dialog modal-sm">
+					<div class="modal-content">
+						<div class="modal-header bg-warning">
+							<h4 class="modal-title">Label Field Does Not Exist</h4>
+						</div>
+						<div class="modal-body">
+							<div class="modal-body">Your polygon file does not have a spatial reference defined. You will need to explictly define this.</div>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-warning" data-dismiss="modal">OK</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- / Warning -->
+			<div id="failureAlert" class="modal fade notice">
+				<div class="modal-dialog modal-sm">
+					<div class="modal-content">
+						<div class="modal-header bg-warning">
+							<h4 class="modal-title">Error Loading File</h4>
+						</div>
+						<div class="modal-body">
+							<div class="modal-body">An error has occurred. Is the file you selected a valid spatial file? Have you zipped your files? - Shapefiles and other multipart files must be zipped prior to upload.</div>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-warning" data-dismiss="modal">OK</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- / Warning -->
+			<div id="serverAlert" class="modal fade notice">
+				<div class="modal-dialog modal-sm">
+					<div class="modal-content">
+						<div class="modal-header bg-warning">
+							<h4 class="modal-title">Problem With Data Server</h4>
+						</div>
+						<div class="modal-body">
+							<div class="modal-body">The data server is currently not responding. Please wait and try your request again.</div>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-warning" data-dismiss="modal">OK</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- / Warning -->
+			<!-- Import Polygons Modal -->
+			<div class="modal fade bg-dark" id="geojsonModal" tabindex="-1" role="dialog" aria-labelledby="geojsonModalLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header bg-primary">
+							<h4 class="modal-title" id="geojsonModalLabel">Import Polygons</h4>
+						</div>
+						<div class="modal-body">
+							<table id="geojsonTable" class="table table-hover bg-light">
+								<thead>
+								</thead>
+								<tbody>
+									<form id="convertGeoJson" action="https://ogre.adc4gis.com/convert" onsubmit="validateForm()" method="post" role="form" enctype="multipart/form-data" class="form-horizontal">
+										<div class="form-group">
+											<label for="upload" class="col-sm-3 control-label">Polygon File:</label>
+											<div class="col-sm-9">
+												<input id="upload" type="file" name="upload" class="form-control">
+												<p class="help-block">Shapefile, KML and KMZ, GeoJSON...</p>
+												<p class="help-block">Formats with multiple files must be zipped prior to uploading.</p>
+											</div>
+										</div>
+										<div class="form-group">
+											<div class="col-sm-9">
+												<input id="targetSrs" type="hidden" name="targetSrs" class="form-control" value="EPSG:4326">
+											</div>
+										</div>
+										<div class="form-group">
+											<label for="labelField" class="col-sm-3 control-label">Label Field:</label>
+											<div class="col-sm-9">
+												<input id="labelField" type="text" title="Attribute field in source data file that contains label names" placeholder="Field name" class="form-control">
+												<p class="help-block">Optional: attribute field name in file defining labels for polygons.</p>
+											</div>
+										</div>
+										<div class="form-group">
+											<label for="sourceSrs" class="col-sm-3 control-label">Coordinate System:</label>
+											<div class="col-sm-9">
+												<select id="sourceSrs" name="sourceSrs" class="form-control">
+                          <option value="" selected>Default (as defined in file)</option>
+                          <option value="EPSG:4326">Geographic coordinates (decimal degrees)</option>
+                          <option value="EPSG:3857">WGS 1984 Web Mercator</option>
+                          <option value="EPSG:3577">Australian Albers equal area</option>
+                          <option value="EPSG:28349">UTM Zone 49</option>
+                          <option value="EPSG:28350">UTM Zone 50</option>
+                          <option value="EPSG:28351">UTM Zone 51</option>
+                          <option value="EPSG:28352">UTM Zone 52</option>
+                          <option value="EPSG:28353">UTM Zone 53</option>
+                          <option value="EPSG:28354">UTM Zone 54</option>
+                          <option value="EPSG:28355">UTM Zone 55</option>
+                          <option value="EPSG:28356">UTM Zone 56</option>
+                       </select>
+											</div>
+										</div>
+								</tbody>
+							</table>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+							<button id="importSubmit" type="submit" class="btn btn-primary">Upload</button>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- end of importPolygons -->
+			<!-- geocoding modal -->
+			<div id="geocodingModal" class="modal fade bg-dark" tabindex="-1" role="dialog" aria-labelledby="geocodingModalLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header bg-primary">
+							<h4 id="geocodingModalLabel" class="modal-title">Search for Location</h4>
+						</div>
+						<div class="modal-body">
+							<p>Specify location using:</p>
+							<fieldset id="location" class="radio">
+								<ul>
+									<li>
+										<input type="radio" name="locopt" id="lot_locopt" value="uselotplan" style="width: auto;"> Lot on Plan (QLD only)
+									</li>
+									<li>
+										<input type="radio" name="locopt" id="latlong_locopt" value="uselatlong" style="width: auto;"> Latitude/longitude
+									</li>
+									<li>
+										<input type="radio" name="locopt" id="address_locopt" value="useaddress" style="width: auto;"> Address
+									</li>
+								</ul>
+							</fieldset>
+							<div>
+								<span id="latlong" style="display:none" class="help-block">
+                     <p > 
+                       Latitude and longitude in decimal degrees:
+                     </p>
+                     <label for="lat">Latitude</label>
+                     <input id="lat" type="textbox" value="">
+                     <label for="long"> Longitude</label>
+                     <input id="long" type="textbox" value=""></br>         
+                 </span>
+								<span id="lotplan-block" style="display:none" class="help-block">
+                     <p>
+                      Lot on Plan. e.g. lot 3 on plan MZ594 is 3MZ594:
+                     </p>
+                     <input id="lotplan" type="textbox" value=""> 
+                 </span>
+								<span id="address-block" style="display:none" class="help-block">
+                   <p>
+                    Street address or location:
+                   </p>
+                   <input id="address" type="textbox" value="">   
+               </span>
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+							<button id="searchSubmit" type="button" class="btn btn-primary" value="Search" data-dismiss="modal">Search</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- geocoding modal -->
+			<!-- Rename Modal -->
+			<div id="renameModal" class="modal fade bg-dark  " tabindex="-1" role="dialog" aria-labelledby="renameModalLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header bg-primary">
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span> </button>
+							<h4 id="renameModalLabel" class="modal-title">Rename Selected Polygons</h4>
+						</div>
+						<div class="modal-body">
+							<table class="table table-hover bg-light">
+								<thead>
+									<td>Old Name</td>
+									<td>New Name</td>
+								</thead>
+								<tbody id="renameTable">
+								</tbody>
+							</table>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+							<button id="renameSubmit" type="button" class="btn btn-primary">Rename</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- end rename modal -->
+
+			<!-- Forage Modal -->
+			<div id="forageModal" class="modal fade bg-dark  " tabindex="-1" role="dialog" aria-labelledby="forage-modal-label" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header bg-primary">
+							<h4 id="forage-modal-label" class="modal-title">FORAGE Reports</h4>
+						</div>
+						<div class="modal-body">
+							<p>
+								Please Note: Only polygons greater than 5 ha will be processed. Results will also be less accurate for smaller polygons (under 10 ha).
+							</p>
+							<table id="forageTable" class="table table-hover bg-light">
+								<tbody>
+									<tr>
+										<td>Report Type</td>
+										<td>
+											<select id="report">
+                          <option value="pdkcover">VM Regional Comparison</option>
+                          <option value="groundcover">Ground Cover</option>
+                          <option value="fpc">Foliage Projective Cover</option>
+                      </select>
+										</td>
+									</tr>
+									<tr>
+										<td>Email</td>
+										<td>
+											<input type="text" placeholder="john.doe@somewhere.com" class="form-control form-group-margin" id="email">
+										</td>
+									</tr>
+									<tr>
+										<td>Label</td>
+										<td>
+											<input id="loclabel" type="text" class="form-control" placeholder="Text input">
+										</td>
+									</tr>
+									<tr id="individualyear">
+										<td>Year and Season</td>
+										<td>
+											<select name="imageyear" id="imageyear">
+                        <option value="Most Recent">Most recent</option>
+                        <option value="2019">2019</option>
+                        <option value="2018">2018</option>
+                        <option value="2017">2017</option>                        
+                        <option value="2016">2016</option>
+                        <option value="2015">2015</option>
+                        <option value="2014">2014</option>
+                        <option value="2013">2013</option>
+                        <option value="2012">2012</option>
+                        <option value="2011">2011</option>
+                        <option value="2010">2010</option>
+                        <option value="2009">2009</option>
+                        <option value="2008">2008</option>
+                        <option value="2007">2007</option>
+                        <option value="2006">2006</option>
+                        <option value="2005">2005</option>
+                        <option value="2004">2004</option>
+                        <option value="2003">2003</option>
+                        <option value="2002">2002</option>
+                        <option value="2001">2001</option>
+                        <option value="2000">2000</option>
+                        <option value="1999">1999</option>
+                        <option value="1998">1998</option>
+                        <option value="1997">1997</option>
+                        <option value="1996">1996</option>
+                        <option value="1995">1995</option>
+                        <option value="1994">1994</option>
+                        <option value="1993">1993</option>
+                        <option value="1992">1992</option>
+                        <option value="1991">1991</option>
+                        <option value="1990">1990</option>
+                        <option value="1989">1989</option>
+                        <option value="1988">1988</option>
+                        <option value="1987">1987</option>
+                     </select>
+										 <select name="imageseason" id="imageseason">
+                        <option value="1">January</option>
+                        <option value="2">Febuary</option>
+                        <option value="3">March</option>
+                        <option value="4">April</option>
+                        <option value="5">May</option>
+                        <option value="6">June</option>
+                        <option value="7">July</option>
+                        <option value="8">August</option>
+                        <option value="9">September</option>
+                        <option value="10">October</option>
+                        <option value="11">November</option>
+                        <option value="12">December</option>
+
+                     </select>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+							<button id="forage-submit" type="button" class="btn btn-primary">Submit</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- end FORAGE modal -->
+
+			<!-- PEPER Modal -->
+			<div id="peperModal" class="modal fade bg-dark" tabindex="-1" role="dialog" aria-labelledby="peperModalLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header bg-primary">
+							<h4 id="peperModalLabel" class="modal-title">PEPER Report</h4>
+						</div>
+						<div class="modal-body">
+							<table id="forageTable" class="table table-hover bg-light">
+								<tbody>
+									<tr>
+										<td>Regional Buffer (Km)</td>
+										<td>
+											<select id="buffer">
+                         <option value="50" selected>50</option>
+                         <option value="10">10</option>
+                         <option value="5">5</option>
+                         <option value="1">1</option>
+                      </select>
+										</td>
+									</tr>
+									<tr>
+										<td>Target Cover (%)</td>
+										<td>
+											<input id="cover" type="number" value="70" max="100">
+										</td>
+									</tr>
+								</tbody>
+							</table>
+							<p>
+								Please Note: Multiple selections are appropriate only for closely located polygons (e.g. separated by a road). Results will not be reliable if selected polygons are widely dispersed.
+							</p>
+							.
+							</p>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+							<button id="peperSubmit" type="button" class="btn btn-primary" data-dismiss="modal">Submit</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- end peper modal -->
+			<!-- Help Modal -->
+			<div id="helpModal" class="modal fade bg-dark  " tabindex="-1" role="dialog" aria-labelledby="helpModalLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header bg-primary">
+							<h4 id="helpModalLabel" class="modal-title">Interactive Help</h4>
+						</div>
+						<div class="modal-body">
+							<img id="helpSrc" src="assets/help/OutputPanel002.png">
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- help modal -->
+			<!-- Help Modal -->
+			<div id="mapHelpModal" class="modal fade bg-dark  " tabindex="-1" role="dialog" aria-labelledby="mapHelpModalLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header bg-primary">
+							<h4 id="mapHelpModalLabel" class="modal-title">Interactive Help</h4>
+						</div>
+						<div class="modal-body">
+							<img id="mapHelpSrc" src="assets/help/MapPanel002.png">
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- help modal -->
+
+			<div id="modal-contact" class="modal fade bg-dark" tabindex="-1" role="dialog" aria-hidden="true">
+				<div class="modal-dialog ">
+					<div class="modal-content">
+						<form action="" class="modal-body">
+							<input id="userName" type="text" placeholder="Your name (optional)" class="form-control form-group-margin input-lg">
+							<input id="userEmail" type="text" placeholder="Your email (optional)" class="form-control form-group-margin input-lg">
+							<textarea id="userQuestion" placeholder="Your issue" class="form-control form-group-margin input-lg" rows="6"></textarea>
+							<div class="clearfix"><button id="contactSubmit" type="button" class="btn btn-lg btn-block btn-flat btn-primary" data-dismiss="modal">Report Issue</button></div>
+						</form>
+					</div>
+					<!-- / .modal-content -->
+				</div>
+				<!-- / .modal-dialog -->
+			</div>
+
+			<!---------------------------------------------------------------------------------------------------------------------------------------->
+			<!-- Competition Modal -->
+			<!--                   <div id="competitionModal" class="modal fade bg-dark  " tabindex="-1" role="dialog" aria-labelledby="competition-modal-label" aria-hidden="true">
+                     <div class="modal-dialog">
+                        <div class="modal-content">
+                           <div class="modal-header bg-warning">
+                              <h4 id="competion-modal-label" class="modal-title">Competition</h4>
+                           </div>
+                           <div class="modal-body">
+                              <img src="assets/images/VegMachine.jpg" style="width:100%">
+                             <p style="margin-top:10px">
+                               To enter, just fill in your details below and hit the enter button.
+                             </p>
+                              <table id="competitionTable" class="table table-hover bg-light">
+                                 <tbody>
+                                    <tr>
+                                       <td>Name</td>
+                                       <td>
+                                          <input id="comp-name" type="text" class="form-control" placeholder="John Doe">
+                                       </td>
+                                    </tr>
+                                    <tr>
+                                       <td>Property Name</td>
+                                       <td>
+                                          <input id="comp-property" type="text" class="form-control" placeholder="">
+                                       </td>
+                                    </tr>                                   
+                                    <tr>
+                                       <td>Property Address</td>
+                                       <td>
+                                          <input id="comp-address" type="textbox" class="form-control" placeholder="">
+                                       </td>
+                                    </tr>
+                                    <tr>
+                                       <td>Phone Number</td>
+                                       <td>
+                                          <input id="comp-phone" type="text" class="form-control" placeholder="07 1234 5678">
+                                       </td>
+                                    </tr>                                   
+                                    <tr>
+                                       <td>Email</td>
+                                       <td>
+                                          <input id="comp-email" type="text" placeholder="john.doe@somewhere.com" class="form-control form-group-margin">
+                                       </td>
+                                    </tr>
+                                 </tbody>
+                             </table>
+                             
+                             <p style="margin:0 0 10 0">
+                              <input id="terms" type="checkbox" style="width:12px;display:inline; margin:0">  I have read and agree to the conditions of entry
+                             </p>
+                  
+                              <p style="font-size: 1.2rem;">
+                                 Conditions of Entry
+                 
+                                <ol style="font-size: 1.2rem;">
+                                  <li>Two winners will be selected, one from a grazing property in the FBA region, and another from a Queensland grazing property outside the FBA region. </li>
+                                  <li>Each winner will receive one VegMachine FORAGE report, and one map of paddocks for their nominated grazing property.</li>   
+                                  <li>Prizes can only be provided to a verified owner or manager of a nominated property.</li>
+                                  <li>Property maps will require input from owners or managers to ensure suitable levels of correctness.</li>
+                                  <li>Entries close 21st April 2017.</li>                             
+                                </ol>                             
+                              </p>                                
+                            
+                           </div>
+                           <div class="modal-footer">
+                              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                              <button id="comp-submit" type="button" class="btn btn-warning" disabled>Enter</button>
+                           </div>
+                        </div>
+                     </div>
+                  </div> -->
+			<!-- end Competiton modal -->
+			<!---------------------------------------------------------------------------------------------------------------------------------------->
+
+		</div>
+		<div id="content-wrapper">
+			<div class="row">
+				<div class="col-md-6 col-md-push-6">
+					<div id="chartDiv1" class="panel transparent">
+						<div class="panel-heading">
+							<span class="panel-title">Output Panel</span>
+							<div class="panel-heading-controls">
+								<button id="saveCSV" class="btn btn-xs btn-primary" title="Save graph data"><span class="fa fa-file-excel-o"></span></button>
+								<button id="saveChart" class="btn btn-xs btn-primary" title="Save chart image"><span class="fa fa-file-image-o"></span></button>
+								<button id="chartToggle" class="btn btn-xs btn-primary" title="Full screen toggle"><span class="fa fa-arrows-alt"></span></button>
+								<button id="chartHelp" class="btn btn-xs btn-primary" title="Help for this panel" data-toggle="modal" data-target="#helpModal"><span class="fa fa-question-circle"></span></button>
+							</div>
+						</div>
+						<div id="chartdiv" class="panel-body">
+							<div id="welcome" class="panel-body">
+								<h2> Welcome to VegMachine<sup>&reg;</sup></h2>
+								<p> VegMachine is an online tool that uses satellite imagery to summarise decades of change in Australia’s grazing lands. It’s simple to operate, easy to understand, and free to use.</p>
+								<p> With VegMachine you can:
+									<ul>
+										<li>generate comprehensive ground cover monitoring reports</li>
+										<li>measure land cover change or estimate soil erosion rates</li>
+										<li>view satellite image land cover products</li>
+										<li>better understand the links between management, climate and cover in grazing land</li>
+									</ul>
+								</p>
+								<p> To get started visit our <a href="help.html">help page</a>. View our privacy policy <a href="#" id="privacy">here</a>.</p>
+								<div id="logos">
+									<img src="assets/images/ag_stacked989.png">
+									<a href="https://fba.org.au" target="_blank"><img src="assets/images/FBA LG col-lsp-60.png"></a>
+									<a href="https://vegcover.com" target="_blank"><img src="assets/images/vegcover_logo.png"></a>
+									<a href="https://auscover.org.au" target="_blank"><img src="assets/images/logo.png"></a>
+									<img src="assets/images/image001.png">
+									<p>
+										This project is supported by Fitzroy Basin Association Inc. through funding from the Australian Government’s Reef Programme.
+									</p>
+									<p>
+										VegMachine is a registered trademark of the CSIRO.
+									</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-6 col-md-pull-6">
+					<div id="mapPanel1" class="panel transparent">
+						<div class="panel-heading">
+							<span class="panel-title">Map Panel</span>
+							<div class="panel-heading-controls">
+								<button id="legendToggle" class="btn btn-xs btn-primary" title="Toggle legend"><span class="fa fa-list"></span></button>
+								<button id="mapToggle" class="btn btn-xs btn-primary" title="Full screen toggle"><span class="fa fa-arrows-alt"></span></button>
+								<button id="mapHelp" class="btn btn-xs btn-primary" title="Help for this panel" data-toggle="modal" data-target="#mapHelpModal"><span class="fa fa-question-circle"></span></button>
+							</div>
+						</div>
+						<div id="mapPanel" class="panel-body">
+							<div id="legend-div">
+               <div id="slider-div" >
+                   <div id="transparency-slider" title="Slide to change transparency of map overlay" class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all" aria-disabled="false">
+                      <div class="ui-slider-range ui-widget-header ui-corner-all ui-slider-range-min"></div>
+                      <a class="ui-slider-handle ui-state-default ui-corner-all" href="#" style="left: 40%;"></a>
+                   </div>					
+							</div>
+                <div id="img-div">
+                    <img id="legend"></div>             
+              </div>
+							<div id="map" class="widget-maps">
+							</div>
+							<!-- GOOGLE MAP -->
+						</div>
+					</div>
+				</div>
+				<div class="modal1"></div>
+			</div>
+		</div>
+		<!-- / #content-wrapper -->
+		<div id="main-menu-bg"></div>
+	</div>
+	<!-- / #main-wrapper -->
+	<!-- Get jQuery from Google CDN -->
+	<!--[if !IE]> -->
+	<script type="text/javascript">
+		window.jQuery || document.write('<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js">' + "<" + "/script>");
+	</script>
+	<!-- <![endif]-->
+	<!--[if lte IE 9]>
+            <script type="text/javascript"> window.jQuery || document.write('<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js">'+"<"+"/script>"); </script>
+            <![endif]-->
+	<!-- jQuery -->
+	<script type="text/javascript" src="assets/vendor/jquery/jquery-1.11.1.min.js"></script>
+	<script type="text/javascript" src="assets/vendor/jquery/jquery_ui/jquery-ui.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/4.2.2/jquery.form.min.js"></script>
+	<!-- VegMachine javascripts -->
+	<script src="assets/vendor/bootstrap/bootstrap.js"></script>
+	<script src="assets/js/pixel-admin.js"></script>
+	<script>
+		var ie = (function() {
+			return ((navigator.appName == 'Microsoft Internet Explorer') || ((navigator.appName == 'Netscape') && (new RegExp("Trident/.*rv:([0-9]{1,}[\.0-9]{0,})").exec(navigator.userAgent) !== null)));
+		}());
+		if (ie === true) {
+			$('#explorerAlert').modal('toggle');
+		}
+	</script>
+
+	<!-- Page Plugins via CDN -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/globalize/0.1.1/globalize.min.js" type="text/javascript"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.3/moment.js" type="text/javascript"></script>
+
+	<!-- Admin Panels  -->
+	<script src="assets/vendor/admin-tools/admin-plugins/admin-panels/jquery.ui.touch-punch.min.js" type="text/javascript"></script>
+	<script src="assets/vendor/admin-tools/admin-plugins/admin-panels/adminpanels.js" type="text/javascript"></script>
+	
+  <!-- Leaflet -->
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.2.0/leaflet.js"></script>
+	<script type="text/javascript" src="https://cdn.rawgit.com/nezasa/iso8601-js-period/master/iso8601.min.js"></script>
+	<script type="text/javascript" src="assets/vendor/leaflet/timedimension/leaflet.timedimension.js"></script>
+	<script type="text/javascript" src="assets/vendor/leaflet/timedimension/leaflet.timedimension.util.js"></script>
+	<script type="text/javascript" src="assets/vendor/leaflet/timedimension/leaflet.timedimension.layer.js"></script>
+	<script type="text/javascript" src="assets/vendor/leaflet/timedimension/leaflet.timedimension.layer.wms.js"></script>
+	<script type="text/javascript" src="assets/vendor/leaflet/timedimension/leaflet.timedimension.layer.geojson.js"></script>
+	<script type="text/javascript" src="assets/vendor/leaflet/timedimension/leaflet.timedimension.player.js"></script>
+	<script type="text/javascript" src="assets/vendor/leaflet/timedimension/leaflet.timedimension.control.js"></script>
+
+	<script type="text/javascript" src="assets/vendor/dateFormat/dateFormat.js"></script>
+	<!-- <script src="assets/vendor/leaflet/leaflet/leaflet-src.js"></script> -->
+
+	<script src="https://maps.googleapis.com/maps/api/js?v=3&key=AIzaSyBl01NodqJvmqP3OBchWn07FFVA4xl-U1A&sensor=false&libraries=places" type="text/javascript"></script>
+
+	<!-- MapBox -->
+	<script src="https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-locatecontrol/v0.24.0/L.Control.Locate.js"></script>
+	<link href="https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-locatecontrol/v0.24.0/L.Control.Locate.css" rel="stylesheet" />
+
+	<!-- Leaflet Plugins-->
+	<script src="https://cdn.jsdelivr.net/npm/leaflet-draw@0.4.12/dist/leaflet.draw.min.js"></script>
+	<script src="assets/vendor/leaflet/groupedlayercontrol/leaflet.groupedlayercontrol.min.js"></script>
+	<script src="assets/vendor/leaflet/Leaflet.MousePosition/L.Control.MousePosition.js"></script>
+	<script src="assets/vendor/turf/turf.min.js" charset="utf-8"></script>
+	<script src="assets/vendor/latlongdistance/latlongdistance.js"></script>
+	<script src="assets/vendor/leaflet/toGeoJSON/toGeoJSON.js"></script>
+	<script src="https://unpkg.com/esri-leaflet@2.1.1/dist/esri-leaflet.js" integrity="sha512-ECQqaYZke9cSdqlFG08zSkudgrdF6I1d8ViSa7I3VIszJyVqw4ng1G8sehEXlumdMnFYfzY0tMgdQa4WCs9IUw==" crossorigin=""></script>
+
+  <!-- CUSTOM SCRIPTS -->
+	<!-- <script src="assets/vendor/leaflet/leaflet.wms/leaflet.wms.js"></script>-->
+	<script src="assets/js/map.js"></script>
+	<script src="assets/js/event_calls.js"></script>
+	<script src="assets/js/rename_polygons.js"></script>
+	<script src="assets/js/csv_export.js"></script>
+
+	<script src="assets/js/polygon_functions.js"></script>
+	<script src="assets/js/vegmachine.js"></script>
+	<script src="assets/js/map_setup.js"></script>
+	<script src="assets/js/draw_setup.js"></script>
+	<script src="assets/js/cadastre.js"></script>
+	<script src="assets/js/layer_control.js"></script>
+	<script src="assets/js/interaction.js"></script>
+
+	<!-- Highstock Charts -->
+	<script src="assets/vendor/highcharts/Highstock-2.1.9/js/highstock.js"></script>
+	<script src="assets/vendor/highcharts/Highstock-2.1.9/js/highcharts-more.js"></script>
+	<script src="assets/vendor/highcharts/Highstock-2.1.9/js/modules/exporting.js"></script>
+
+	<!-- Custom Chart scripts -->
+	<script src="assets/js/timeseries_chart.js"></script>
+	<script src="assets/js/polygon_chart.js"></script>
+	<script src="assets/js/peper_chart.js"></script>
+	<script src="assets/js/forage.js"></script>
+	<!--  <script src="assets/js/comp.js"></script>-->
+</body>
+
+</html>

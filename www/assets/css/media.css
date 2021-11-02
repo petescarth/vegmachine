@@ -1,0 +1,34 @@
+/* small tablet and landscape phone styles */
+
+@media (min-width: 480px) and (max-width: 780px) {
+#data-warning  .modal-content {
+    position:   relative;
+    left: calc(100% * 0.4);
+}
+	
+}
+
+
+
+/* larger tablet styles */
+
+@media (min-width: 781px) and (max-width: 980px) {
+
+	
+	
+	
+}
+
+
+
+
+/* Full screen styles */
+
+@media (min-width: 981px) {
+/* chart div */
+#chartdiv, #mapPanel {
+	height:88vh;
+	width:100%;
+}
+
+}

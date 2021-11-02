@@ -1,0 +1,32 @@
+.ui-slider-handle {
+    position: absolute;
+    width: 8px;
+    height: 22px;
+    background-color: #ddd;
+    border-radius: 2px;
+    border: 1px solid #a5a5a5;
+    margin-top: -6px;
+    margin-left: -4px !important;
+    cursor: ew-resize;
+    cursor: -webkit-grab;
+    cursor: -moz-grab;
+}
+
+.ui-slider-handle:before {
+    display:none;
+}
+
+.ui-slider {
+    background: #fff;
+    border-radius: 0;
+    width: 85%;
+    height: 12px;
+    margin: 8px 6px 6px 6px;  
+    border: 1px solid #a5a5a5;
+    float: left;
+}
+
+.ui-slider-horizontal .ui-slider-handle {
+     top: 0; 
+}
+

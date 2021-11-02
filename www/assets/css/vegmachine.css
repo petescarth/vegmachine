@@ -1,0 +1,348 @@
+/* Ajax loading*/
+
+.modal1 {
+	display: none;
+	position: fixed;
+	z-index: 10000;
+	top: 0;
+	left: 0;
+	height: 100%;
+	width: 100%;
+	background: rgba( 255, 255, 255, .7) url('../images/loading_gears.gif') 50% 50% no-repeat;
+}
+
+
+/* When the body has the loading class, we turn
+   the scrollbar off with overflow:hidden */
+a {
+	font-style: bold;
+}
+
+body.loading {
+	overflow: hidden;
+}
+
+
+/* Anytime the body has the loading class, our
+   modal element will be visible */
+
+body.loading .modal1 {
+	display: block;
+}
+
+#data-warning {
+	position: fixed;
+	z-index: 10000;
+	top: 0;
+	left: 0;
+	height: 100%;
+	width: 100%;
+}
+
+body {
+	font-family: "Open Sans", Calibri, Arial, sans-serif;
+	font-size: 1.5rem;
+	line-height: 1.42857143;
+	color: #333333;
+	height: 100vh;
+}
+
+canvas {
+	z-index: 50;
+}
+
+.leaflet-overlay-pane > img {
+		z-index: 50;
+}
+
+.leaflet-pane {
+    z-index: 1 !important;
+}
+
+.leaflet-container .leaflet-control-attribution {
+	display: none;
+}
+
+.leaflet-bar-timecontrol a.timecontrol-date {
+	min-width: 100px;
+	width: 120px;
+	padding: 0 10px 0 10px;	
+}
+
+.leaflet-bar-timecontrol a.timecontrol-date:hover {
+	background-color: #fff;
+	min-width: 100px;
+	width: 120px;
+	padding: 0 10px 0 10px;
+}
+
+.leaflet-bar-timecontrol a.timecontrol-date, .leaflet-bar-timecontrol a.timecontrol-date:hover {
+  background-color: #fff;	
+	min-width: 100px;
+	width: 120px;	
+	padding: 0 10px 0 10px;
+}
+
+.leaflet-bar-timecontrol a.timecontrol-date.utc, .leaflet-bar-timecontrol a.timecontrol-date.utc:hover {
+	background-color: #fff;
+	min-width: 100px;
+	width: 120px;
+	padding: 0 10px 0 10px;	
+}
+
+.leaflet-bar-timecontrol .timecontrol-dateslider .slider {
+    width: 100px;
+}
+
+#content-wrapper {
+	background-color: #dadedf;
+	padding-top: 54px;
+}
+
+#content-wrapper > div > div.col-md-6 {
+	position: relative;
+	padding: 5px;
+}
+
+.row {
+	margin-bottom: -25px;
+}
+
+/* Main Menu Toggle */
+.navbar-brand > img {
+	vertical-align: top;
+	border-radius: 2px;
+	box-shadow: 0 0 5px 5px #fff;
+	margin: 10px 2px 0 0;
+	width: 25px;
+	height: 25px;
+	display: inline-block;
+}
+
+#main-menu-toggle > img {
+	width: 30px;
+	height: 30px;
+	margin-bottom: 7px;
+}
+
+#main-menu-toggle > span {
+	font-size: large;
+	color: #102E37;
+	font-weight: bold;
+	font-variant: small-caps;
+	text-shadow: 0 0 0.4em #fff, 0 0 0.4em #fff, 0 0 0.4em #fff, 0 0 0.4em #fff, 0 0 0.4em #fff, 0 0 0.4em #fff, 0 0 0.4em #fff;
+}
+
+#main-navbar .navbar-nav.pull-right {
+	width: auto;
+	margin: 7px 15px 0 0;
+}
+
+#main-navbar .navbar-nav.pull-right .btn {
+	color: white;
+  text-transform: initial;
+}
+
+#main-navbar .navbar-header, .mmc #main-navbar .navbar-header {
+	width: 100%;
+  z-index: 500;
+}
+.leaflet-bar-timecontrol {
+	visibility: visible;
+}
+
+/* chart div */
+.panel-fullscreen > div.panel-body {
+	height: 95% !important;	
+}
+
+#chartdiv, #mapPanel {
+	height: 80vh;
+	width: 100%;
+	padding: 8px;
+}
+
+#welcome {
+	padding-top: 8px;
+}
+#welcome > h2 {
+	font-size: 2rem;
+	font-style: bold;
+		margin-top:8px;
+}
+#welcome > p, 
+#welcome > ul > li {
+	font-size: 1.3rem;
+}
+
+/* Logos */
+#logos {
+	position: absolute;
+	bottom: 20px;
+	margin-right: 20px;
+	text-align: center;
+}
+#logos > p {
+	font-size: 0.9rem;
+}
+#logos > img:nth-child(1) {
+	width: 19%;
+	margin: 0 0 0 3%;
+}
+
+#logos > a:nth-child(2) > img {
+	width: 19%;
+	margin: 0 0 2% 2%;
+}
+
+#logos > a:nth-child(3) > img {
+	width: 11%;
+	margin: 0 0 2% 2%;
+}
+
+#logos > a:nth-child(4) > img {
+	width: 13%;
+	margin: 0 0 2% 2%;
+}
+
+#logos > img:nth-child(5) {
+	width: 12%;
+	margin: 0 0 2% 2%;
+}
+
+.widget-maps {
+	position: relative;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	height: 100%;
+	width: 100%;
+}
+
+/* Legend */
+
+#legendToggle {
+	visibility: hidden;
+}
+
+#legend-div {
+	position: absolute;
+	bottom: 30px;
+	right: 17px;
+	z-index: 100;
+	height: 170px;
+  min-width: 65px;
+}
+
+#legend-div img {
+  border-radius: 5px;
+  float: right;
+  max-height:130px;
+  min-width:65px
+}
+
+#slider-div {
+  visibility: hidden;
+  height: 30px;
+  line-height: 30px;
+  background:#fff;
+  display: inline-block;
+  border-radius: 5px;
+  width:100%;
+}
+
+.ui-slider, .ui-spinner {
+	z-index: 10;
+}
+
+#transparency-div {
+    position: relative;
+    z-index: 10;
+    background-color: white;
+    border-radius: 3px;
+    height: 100%;
+	  text-align: center;
+}
+
+
+.leaflet-tile-container img {
+	-webkit-backface-visibility: hidden;
+}
+
+.leaflet-top,
+.leaflet-left {
+	z-index: 2;
+}
+
+.leaflet-bottom {
+	position: relative;
+	left: 10px;
+	bottom: 10px;
+}
+
+#saveCSV,
+#saveChart {
+	display: none;
+}
+
+#helpSrc, #mapHelpSrc {
+	width: 100%;
+}
+
+.pac-container {
+	background-color: #FFF;
+	z-index: 1451 !important;
+	position: fixed;
+	display: inline-block;
+	float: left;
+}
+
+.modal {
+	z-index: 1440;
+}
+
+.modal.fade.notice.in {
+	z-index: 1450 !important;
+}
+
+.modal.fade.notice.in::after .modal-backdrop.in  {
+	z-index: 1445 !important;
+}
+
+.leaflet-top,
+.leaflet-bottom {
+	position: absolute;
+	z-index: 5;
+	/* was 1000 */
+	pointer-events: none;
+}
+
+#address-block, #lotplan-block, #address, #lotplan {
+	width: 100%;
+}
+
+.leaflet-control-attribution {
+	display: none;
+}
+
+/* Help page CSS */
+.page-faq .accordion-toggle {
+	color: #555555;
+}
+
+.page-faq .form-faq {
+	margin-top: 18px;
+}
+
+#individualyear {
+	display: none;
+}
+
+.leaflet-control-scale-line {
+  border: 1.5px solid #caccce;
+  margin-top: 5px;
+  margin-left: -6px;
+}
+
+
